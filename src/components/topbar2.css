@@ -1,0 +1,131 @@
+
+/*Topbar2 Typography*/ 
+/* =========================================
+/* =========================================
+  /* =========================================
+   TOPBAR 2 - SUBPAGE HEADER (Centered Fix)
+   ========================================= */
+
+.bige-topbar2 {
+  width: 100%;
+  max-width: 490px; /* Added to match your app-wrapper */
+  margin: 0 auto;   /* Centers it on the PC screen */
+  background: linear-gradient(135deg, #af641e, #2563eb);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px); /* The "Glass" effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+}
+
+/* 1. Status Bar - Fixed to stay inside the 490px frame */
+.bige-status-bar2 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  width: 100%; 
+}
+
+.status-dot2 {
+  width: 6px;
+  height: 6px;
+  background: #10b981;
+  border-radius: 50%;
+}
+
+.status-text2 {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 2. Main Content Container */
+.topbar2-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  height: 60px;
+  position: relative;
+}
+
+/* 3. Left Group (Back + Logo) */
+.topbar2-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+
+.topbar2-back {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.topbar2-mini-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+
+/* 4. Center Group (Centered Title & Subtitle) */
+.topbar2-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 60%;
+}
+
+.topbar2-page-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.topbar2-brand-name {
+  font-size: 10px;
+  font-weight: 800;
+  color: #ffd8a8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: -2px;
+}
+
+/* 5. Right Group (Options) */
+.topbar2-right {
+  z-index: 2;
+}
+
+.topbar2-options {
+  background: none;
+  border: none;
+  color: #ffffff;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.topbar2-right .relative span {
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+  line-height: 1;
+}

@@ -1,0 +1,225 @@
+.vault-bg {
+  background-color: #020617; /* Even deeper black for contrast */
+  color: #ffffff;
+}
+
+.vault-scroll-fix {
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+
+.vault-inner {
+  padding: 20px;
+  max-width: 490px;
+  margin: 0 auto;
+}
+
+/* PROTOCOL BANNER */
+.protocol-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(30, 41, 59, 0.4);
+  padding: 12px 16px;
+  border-radius: 14px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.protocol-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 900;
+  color: #94a3b8; /* Slate metadata */
+  letter-spacing: 1.5px;
+}
+
+/* TOTAL VALUE CARD */
+.vault-total-card {
+  background: linear-gradient(180deg, #1e293b 0%, #020617 100%);
+  border-radius: 36px;
+  padding: 40px 20px;
+  text-align: center;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8);
+  margin-bottom: 30px;
+}
+
+.card-label {
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.total-val {
+  font-size: 46px;
+  font-weight: 900;
+  color: #ffffff; /* Pure White Primary */
+  letter-spacing: -2px;
+}
+
+.unit { color: #f59e0b; margin-right: 6px; }
+
+.vault-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(52, 211, 153, 0.1);
+  color: #34d399;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 900;
+  margin-top: 15px;
+}
+
+/* ASSET LIST */
+.holdings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.asset-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 12px;
+}
+
+.asset-name { font-size: 16px; font-weight: 800; margin-bottom: 2px; }
+.asset-symbol { font-size: 11px; color: #64748b; font-weight: 700; }
+.asset-balance { font-size: 16px; font-weight: 900; text-align: right; }
+.asset-usd { font-size: 12px; color: #94a3b8; font-weight: 600; text-align: right; }
+
+/* MODAL REFINEMENT */
+.receive-modal {
+  background: #0f172a;
+  color: #ffffff;
+  border-top: 2px solid #f59e0b;
+  box-shadow: 0 -20px 50px rgba(0,0,0,0.5);
+}
+
+.address-field {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.address-text {
+  color: #f59e0b !important;
+  font-weight: 900 !important;
+}
+
+.warning-banner p {
+  color: #f59e0b;
+  font-weight: 800;
+}
+
+/* LOADING */
+.vault-spinner-icon {
+  color: #f59e0b;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* =========================================
+   ACTION GRID CONTAINER
+   ========================================= */
+.vault-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Side-by-side layout */
+  gap: 16px;
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+
+/* =========================================
+   BASE BUTTON STYLES (v-btn)
+   ========================================= */
+.v-btn {
+  height: 60px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tactile Click Effect */
+.v-btn:active {
+  transform: scale(0.95);
+  filter: brightness(0.9);
+}
+
+/* =========================================
+   PRIMARY BUTTON (SWAP / SEND)
+   ========================================= */
+.primary-v {
+  background: #f59e0b; /* Amber 500 */
+  color: #020617;      /* Deep Navy Text for Contrast */
+  box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.4);
+}
+
+.primary-v:hover {
+  background: #fbbf24; /* Lighter Amber on hover */
+  box-shadow: 0 15px 30px -5px rgba(245, 158, 11, 0.5);
+}
+
+/* =========================================
+   SECONDARY BUTTON (RECEIVE / SETTINGS)
+   ========================================= */
+.secondary-v {
+  background: rgba(255, 255, 255, 0.05); /* Semi-transparent Glass */
+  color: #ffffff;                        /* Pure White Text */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.secondary-v:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* =========================================
+   ICON SPECIFICS
+   ========================================= */
+.v-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.primary-v:hover svg {
+  transform: translate(2px, -2px); /* Arrow drifts up-right */
+}
+
+.secondary-v:hover svg {
+  transform: translate(-2px, 2px); /* Arrow drifts down-left */
+}
+

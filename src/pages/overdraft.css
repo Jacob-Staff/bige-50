@@ -1,0 +1,161 @@
+.overdraft-page {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  /* FIX: Constraints for PC View - Maintained existing styles */
+  width: 100%;
+  max-width: 490px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.overdraft-container {
+  padding: 20px 16px;
+}
+
+/* Limit Card */
+.limit-card {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  padding: 24px;
+  border-radius: 20px;
+  color: white;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.limit-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  opacity: 0.8;
+  margin-bottom: 8px;
+}
+
+.limit-amount {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.limit-progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.limit-progress-fill {
+  height: 100%;
+  background: #fbbf24;
+}
+
+.limit-hint {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+/* Borrow Input */
+.borrow-section {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.input-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #475569;
+}
+
+.borrow-input-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 8px;
+}
+
+.k-prefix {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-right: 8px;
+}
+
+.borrow-input-wrapper input {
+  border: none;
+  outline: none;
+  font-size: 28px;
+  font-weight: 700;
+  width: 100%;
+  color: #1e293b;
+}
+
+/* Terms Preview */
+.terms-preview {
+  margin-top: 20px;
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.term-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.term-row.total {
+  border-top: 1px dashed #cbd5e1;
+  padding-top: 8px;
+  margin-top: 8px;
+  color: #1e293b;
+  font-weight: 700;
+}
+
+.apply-btn {
+  width: 100%;
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.apply-btn:disabled {
+  background: #cbd5e1;
+}
+
+/* Features */
+.overdraft-features {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature {
+  display: flex;
+  gap: 12px;
+}
+
+.feature-text strong {
+  display: block;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.feature-text p {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.text-green { color: #10b981; }
+.text-blue { color: #3b82f6; }

@@ -1,0 +1,150 @@
+/* src/pages/wallet.css */
+
+.wallet-page {
+  padding: 16px;
+  /* Match your dashboard's theme for consistency */
+  background: linear-gradient(135deg, #af641e, #2563eb);
+  flex: 1; /* Fills the vertical space inside the #root */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 490px; /* Lock to the standard width */
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* SECTIONS */
+.wallet-section {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #ffffff;
+  padding-left: 4px;
+}
+
+/* CARDS */
+.wallet-card {
+  background: white;
+  border-radius: 20px; /* Softer corners to match the phone frame */
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.balance-card {
+  margin-bottom: 24px;
+  /* Make the balance card stand out */
+  border-left: 4px solid #af641e;
+}
+
+.balance-label {
+  font-size: 13px;
+  color: #ffffff;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.balance-amount {
+  font-size: 32px; /* Slightly larger for impact */
+  font-weight: 800;
+  margin: 10px 0;
+  color: 
+  #e49c00;
+  letter-spacing: -1px;
+}
+
+.wallet-id {
+  font-size: 12px;
+  font-family: 'Courier New', monospace; /* Looks more like an ID/Account number */
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+/* ACTION GRID */
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.action-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 16px 8px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.action-item:active {
+  transform: scale(0.95);
+  background: #f8fafc;
+}
+
+.action-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+  color: #2563eb;
+  font-size: 20px;
+}
+
+.action-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* STATEMENTS */
+.statement-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+}
+
+.statement-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space out the label and value */
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.statement-row:last-child {
+  border-bottom: none;
+}
+
+/* BUTTON */
+.primary-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.primary-btn:hover {
+  background: #1d4ed8;
+}

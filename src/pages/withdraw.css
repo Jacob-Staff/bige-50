@@ -1,0 +1,251 @@
+/* src/pages/withdraw.css */
+
+.withdraw-page {
+  /* LAYOUT & STICKY FIX */
+  min-height: 100vh;
+  width: 100%;
+  max-width: 490px; /* Locked phone size */
+  margin: 0 auto;
+  position: relative; 
+  font-family: 'Inter', sans-serif;
+  
+  /* VAULT THEME COLORING */
+  background-color: #0f172a; 
+  color: white;
+  
+  /* REMOVED GAP AT TOP - FIXES SCREENSHOT 19 */
+  padding: 0; 
+  box-sizing: border-box;
+  box-shadow: 0 0 80px rgba(0, 0, 0, 0.8);
+  
+  /* PREVENT BLEEDING - FIXES SCREENSHOT 18 */
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* FORCING TOPBAR2 TO FIT THE 490PX WIDTH AND TOP EDGE */
+.withdraw-page header, 
+.withdraw-page .topbar-container {
+  width: 100% !important;
+  position: sticky !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 1000;
+  margin: 0 !important;
+  background-color: #0f172a !important; /* Matches page bg */
+}
+
+/* INTERNAL CONTENT CONTAINER */
+.withdraw-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  flex-grow: 1;
+}
+
+/* SETTLEMENT PROTOCOL HEADER */
+.settlement-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px dashed rgba(245, 158, 11, 0.3);
+}
+
+.settlement-header span {
+  font-size: 10px;
+  font-weight: 800;
+  color: #f59e0b;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* BALANCE INDICATOR BOX */
+.available-balance-box {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 100%);
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.available-balance-box label {
+  font-size: 10px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.balance-val {
+  font-size: 28px;
+  font-weight: 800;
+  color: #f59e0b;
+  letter-spacing: -0.5px;
+}
+
+/* CARD & INPUTS */
+.withdraw-card {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.input-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: -8px;
+  margin-left: 4px;
+}
+
+.withdraw-card input,
+.withdraw-card select {
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 15px;
+  background: #00000033;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.withdraw-card input:focus,
+.withdraw-card select:focus {
+  border-color: #f59e0b;
+  background: #00000066;
+  outline: none;
+}
+
+/* AMOUNT ROW */
+.amount-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.amount-input-wrapper input {
+  width: 100%;
+  padding-right: 90px;
+  font-size: 22px;
+  font-weight: 900;
+  color: white;
+  letter-spacing: -1px;
+}
+
+.currency-tag {
+  position: absolute;
+  right: 12px;
+  font-size: 9px;
+  font-weight: 900;
+  color: #0f172a;
+  background: #f1f5f9;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-transform: uppercase;
+}
+
+/* INSTITUTIONAL BUTTON */
+.withdraw-btn {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #0f172a;
+  border: none;
+  border-radius: 16px;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 15px rgba(245, 158, 11, 0.2);
+}
+
+.withdraw-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 8px rgba(245, 158, 11, 0.1);
+}
+
+.withdraw-btn:disabled {
+  background: #1e293b;
+  color: #475569;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+/* SUMMARY & FOOTER */
+.withdraw-summary {
+  margin-top: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 18px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+.summary-row.total {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-weight: 900;
+  color: white;
+  font-size: 16px;
+}
+
+.deduction-val {
+  color: #f43f5e; /* Red for deduction */
+  font-weight: 800;
+}
+
+.settlement-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px;
+  margin-top: 16px;
+  background: rgba(245, 158, 11, 0.05);
+  border-radius: 14px;
+  border: 1px solid rgba(245, 158, 11, 0.1);
+}
+
+.settlement-info p {
+  font-size: 11px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Lucide Icon styling inside settlement info */
+.settlement-info svg {
+  color: #f59e0b;
+  flex-shrink: 0;
+}

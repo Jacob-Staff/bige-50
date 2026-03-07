@@ -1,0 +1,168 @@
+/* =========================
+   LOGIN - BRANDED LAYOUT
+   ========================= */
+
+.login-content-area {
+  padding: 30px 20px;
+  flex: 1;
+  background: #ffffff;
+}
+
+/* BRAND HEADER - Matches Register Theme */
+.brand-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 35px;
+  padding: 50px 20px;
+  background: linear-gradient(135deg, #af641e, #2563eb); 
+  border-radius: 0 0 40px 40px; 
+  margin: -30px -20px 30px -20px;
+}
+
+.login-brand {
+  font-family: Georgia, serif;
+  letter-spacing: 6px;
+  font-weight: 900;
+  color: #ffffff;
+  font-size: 28px;
+  text-transform: uppercase;
+}
+
+.login-subtitle {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
+
+.login-intro {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.login-tagline {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 5px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.login-input {
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 16px;
+  color: #1e293b;
+  width: 100%;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+/* BUTTON - Blue Primary */
+.login-button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 18px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+  transition: 0.2s;
+}
+
+.login-button:active {
+  transform: scale(0.98);
+}
+
+.error-banner {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid #fee2e2;
+  text-align: center;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.register-link-btn {
+  color: #2563eb;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Loader Animation */
+.animate-spin {
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

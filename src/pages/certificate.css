@@ -1,0 +1,67 @@
+.cert-page {
+  background: #1e293b;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.cert-actions {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.back-link, .action-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.cert-wrapper {
+  background: #fff;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 1.41 / 1; /* A4 Ratio */
+  padding: 40px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  color: #0f172a;
+  position: relative;
+}
+
+.cert-border {
+  border: 15px solid #f1f5f9;
+  height: 100%;
+  padding: 40px;
+  border-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H100V100H0V0Z' fill='%23af641e'/%3E%3C/svg%3E") 30 stretch;
+}
+
+.cert-content { text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+
+.cert-header h1 { font-family: 'Times New Roman', serif; font-size: 28px; letter-spacing: 2px; margin-top: 20px; }
+.protocol-ref { font-weight: 800; color: #64748b; font-size: 12px; margin-top: 5px; }
+
+.cert-body { margin-top: 40px; }
+.user-name { font-family: 'Times New Roman', serif; font-size: 42px; color: #af641e; margin: 20px 0; border-bottom: 1px solid #e2e8f0; display: inline-block; padding: 0 40px; }
+
+.cert-details { display: flex; justify-content: space-around; margin-top: 30px; }
+.detail-item label { display: block; font-size: 10px; color: #94a3b8; text-transform: uppercase; }
+.detail-item span { font-weight: 700; font-family: monospace; }
+
+.cert-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 50px; }
+.sig-line { width: 150px; border-top: 1px solid #0f172a; margin-bottom: 5px; }
+.signature-box span { font-size: 12px; font-weight: 600; }
+
+@media print {
+  .no-print { display: none; }
+  .cert-page { background: white; padding: 0; }
+  .cert-wrapper { box-shadow: none; }
+}

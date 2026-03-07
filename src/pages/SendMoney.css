@@ -1,0 +1,153 @@
+/* src/pages/sendMoney.css */
+
+.send-page {
+  background: #f8fafc; /* Slightly softer grey-blue background */
+  min-height: 100vh;
+}
+
+/* CONTAINER FOR CONTENT (To account for Topbar2 height if needed) */
+.send-container {
+  padding: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* HEADER (Only if you aren't using Topbar2) */
+.send-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 16px;
+  color: #1e40af;
+}
+
+.back-btn {
+  background: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.1s ease;
+}
+
+.back-btn:active {
+  transform: scale(0.95);
+}
+
+/* CARD - Main Form */
+.send-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.send-card label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: -5px; /* Pulls label closer to its input */
+}
+
+.send-card input,
+.send-card select {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.send-card input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.amount-row {
+  display: flex;
+  gap: 10px;
+}
+
+.amount-row input {
+  flex: 2;
+  font-weight: 600;
+}
+
+.amount-row select {
+  flex: 1;
+  background-color: #f1f5f9;
+  font-weight: 600;
+  color: #1e40af;
+}
+
+/* ACTION BUTTON */
+.send-btn {
+  margin-top: 10px;
+  background: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.send-btn:hover {
+  background: #1e3a8a;
+}
+
+.send-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* SUMMARY - Digital Receipt Style */
+.send-summary {
+  margin-top: 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px dashed #cbd5e1; /* Dashed border gives it a receipt feel */
+}
+
+.summary-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.summary-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 10px 0;
+}
+
+.summary-row.total {
+  font-weight: 800;
+  font-size: 16px;
+  color: #1e40af;
+  margin-top: 5px;
+  margin-bottom: 0;
+}

@@ -1,0 +1,229 @@
+.receipt-page {
+  padding: 30px 20px;
+  background: #f8fafc;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.receipt-success {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.receipt-success h2 {
+  font-size: 22px;
+  color: #1e293b;
+  margin-top: 15px;
+}
+
+.receipt-success p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.receipt-card {
+  background: white;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px dashed #f1f5f9;
+  font-size: 14px;
+}
+
+.receipt-row:last-child {
+  border-bottom: none;
+}
+
+.receipt-row span:first-child {
+  color: #64748b;
+}
+
+.receipt-row strong {
+  color: #1e293b;
+  font-size: 16px;
+}
+
+.ref-text {
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.status-success {
+  color: #16a34a;
+  font-weight: 700;
+  background: #f0fdf4;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.receipt-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 24px;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #1e293b;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.done-btn {
+  margin-top: auto;
+  width: 100%;
+  max-width: 400px;
+  padding: 16px;
+  border-radius: 14px;
+  background: #1e293b;
+  color: white;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+/* receipt.css */
+.receipt-page {
+  padding: 24px;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.receipt-success {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 32px;
+}
+
+.receipt-success h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-top: 16px;
+}
+
+.receipt-success p {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* The Receipt Card Design */
+.receipt-card {
+  background: white;
+  width: 100%;
+  max-width: 360px;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  position: relative;
+  border: 1px solid #f1f5f9;
+}
+
+.receipt-brand-header {
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #e2e8f0;
+  margin-bottom: 20px;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.receipt-row span:first-child {
+  font-size: 13px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.receipt-row strong, .receipt-row span:last-child {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.ref-text {
+  font-family: 'Courier New', Courier, monospace;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px !important;
+}
+
+.status-success {
+  color: #16a34a !important;
+  background: #f0fdf4;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px !important;
+  text-transform: uppercase;
+}
+
+/* Actions */
+.receipt-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 360px;
+  margin-top: 32px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.done-btn {
+  width: 100%;
+  max-width: 360px;
+  background: #1e40af;
+  color: white;
+  padding: 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  margin-top: 16px;
+  box-shadow: 0 10px 15px -3px rgba(30, 64, 175, 0.2);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

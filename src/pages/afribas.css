@@ -1,0 +1,275 @@
+/* src/pages/afribas.css */
+
+.afribas-page {
+  background: #f8fafc; /* Professional light gray background for the "empty" areas */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.afribas-container {
+  width: 100%;
+  max-width: 490px; /* Locked phone width */
+  padding: 0 20px;
+  margin-top: -25px; /* Overlap Topbar2 for institutional feel */
+  box-sizing: border-box;
+}
+
+/* PILLAR 5: Security Protocol Bar */
+.settlement-protocol-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #fffbeb; /* Light amber for high-alert visibility */
+  color: #af641e;
+  padding: 10px 16px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  border: 1px solid rgba(175, 100, 30, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.settlement-protocol-bar.investigative {
+  background: #fef2f2; /* Subtle red-tint for investigative mode */
+  color: #b91c1c;
+  border-color: rgba(185, 28, 28, 0.2);
+}
+
+/* THE IDENTITY CARD (The "Vault" Component) */
+.id-card {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-radius: 28px;
+  padding: 24px;
+  color: white;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+  border: 1px solid rgba(226, 180, 67, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Card Top Styling */
+.card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
+.logo-area { display: flex; align-items: center; gap: 10px; }
+.circle-logo { 
+  width: 32px; height: 32px; 
+  background: #f59e0b; 
+  border-radius: 10px; 
+  display: flex; align-items: center; justify-content: center; 
+  font-weight: 900; color: #0f172a;
+}
+.logo-area span { font-weight: 800; font-size: 14px; letter-spacing: 1px; }
+
+/* PILLAR 4 & 5: Compliance Tag */
+.compliance-tag { 
+  display: flex; align-items: center; gap: 4px; 
+  font-size: 10px; font-weight: 900; 
+  background: rgba(245, 158, 11, 0.1); 
+  padding: 4px 10px; border-radius: 100px;
+  color: #f59e0b; 
+}
+
+/* Card Middle (Protocol ID) */
+.card-middle label { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+.id-number { 
+  font-size: 18px; font-weight: 700; color: #f59e0b; 
+  margin-top: 8px; font-family: 'Courier New', monospace; 
+  letter-spacing: 1px;
+}
+
+/* Card Bottom (Pillar 3 & 4: Risk Assessment) */
+.card-bottom { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 35px; }
+.status-badge { 
+  display: flex; align-items: center; gap: 8px; 
+  background: rgba(16, 185, 129, 0.15); color: #10b981; 
+  padding: 8px 16px; border-radius: 12px; 
+  font-size: 10px; font-weight: 800; border: 1px solid rgba(16, 185, 129, 0.2); 
+}
+
+.status-badge.risk-low { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+
+.dot { width: 8px; height: 8px; border-radius: 50%; }
+.dot.green { background: #10b981; box-shadow: 0 0 8px #10b981; }
+.pulse { animation: pulse-animation 2s infinite; }
+
+@keyframes pulse-animation {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* PILLAR 3: Investigative Info Section */
+.protocol-info { margin-top: 35px; }
+.section-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.section-title-row h2 { font-size: 18px; font-weight: 800; color: #0f172a; margin: 0; }
+.protocol-desc { font-size: 13px; color: #64748b; line-height: 1.6; margin-bottom: 24px; }
+
+/* Feature Grid for Security Pillars */
+.feature-grid { display: flex; flex-direction: column; gap: 14px; }
+.feature-item { 
+  display: flex; gap: 16px; padding: 18px; 
+  background: white; border-radius: 20px; border: 1px solid #e2e8f0; 
+  transition: all 0.2s ease;
+}
+
+.feature-item.highlight {
+  border-left: 4px solid #f59e0b; /* Emphasizes the Anti-Terrorism/War monitor */
+  background: #fffcf5;
+}
+
+.f-icon { 
+  width: 40px; height: 40px; background: #f8fafc; 
+  border-radius: 12px; display: flex; align-items: center; 
+  justify-content: center; color: #0f172a; 
+}
+.f-icon.alert { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+
+.f-text strong { display: block; font-size: 14px; color: #0f172a; margin-bottom: 2px; }
+.f-text span { font-size: 11px; color: #64748b; font-weight: 500; line-height: 1.4; }
+
+/* Identity Actions */
+.id-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 30px; }
+.id-btn { 
+  height: 54px; border-radius: 16px; border: 1px solid #e2e8f0; 
+  background: white; font-weight: 800; font-size: 13px; 
+  display: flex; align-items: center; justify-content: center; gap: 10px; 
+  cursor: pointer; transition: all 0.2s;
+}
+.id-btn:active { transform: scale(0.96); }
+.id-btn.secondary { background: #0f172a; color: white; border: none; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2); }
+
+/* Footer */
+.institutional-footer { text-align: center; margin-top: 40px; padding-bottom: 40px; }
+.institutional-footer p { 
+  font-size: 9px; color: #94a3b8; font-weight: 800; 
+  letter-spacing: 2px; line-height: 1.6; text-transform: uppercase;
+}
+.network-status-panel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+  background: rgba(15, 23, 42, 0.6);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 8px;
+  color: #94a3b8;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 10px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.text-green { color: #10b981; }
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #f59e0b;
+  border-radius: 50%;
+  animation: blink 1.5s infinite;
+}
+
+/* Verification Tracker Styling */
+.verification-tracker {
+  background: rgba(15, 23, 42, 0.8);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tracker-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 800;
+  color: #94a3b8;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.progress-segments {
+  display: flex;
+  gap: 6px;
+}
+
+.segment {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.segment-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.segment.active .segment-bar {
+  background: #f59e0b;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+.segment-label {
+  font-size: 8px;
+  color: #64748b;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.segment.active .segment-label {
+  color: #f59e0b;
+}
+
+/* Security Feed Box */
+.security-feed-box {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 15px;
+  border-left: 2px solid #f59e0b;
+}
+
+.feed-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.feed-header h3 {
+  font-size: 10px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.feed-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  color: #94a3b8;
+  margin-top: 4px;
+}

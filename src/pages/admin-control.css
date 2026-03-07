@@ -1,0 +1,166 @@
+/* src/pages/admin-control.css */
+
+.management-theme {
+  background-color: #0c0a09; /* Darker charcoal */
+  border-color: #f59e0b22;
+}
+
+.mgmt-nav {
+  height: 64px;
+  background: #1c1917;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid #f59e0b44;
+}
+
+.mgmt-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #f59e0b;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.save-btn {
+  background: #f59e0b;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 900;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.editor-intro {
+  margin-bottom: 30px;
+  border-left: 3px solid #f59e0b;
+  padding-left: 15px;
+}
+
+.editor-intro h2 { font-size: 14px; color: #fff; margin: 0; }
+.highlight-id { color: #f59e0b; font-family: monospace; }
+.editor-intro p { font-size: 10px; color: #78716c; margin-top: 5px; }
+
+.mgmt-section {
+  margin-bottom: 25px;
+}
+
+.section-label {
+  display: block;
+  font-size: 9px;
+  color: #f59e0b;
+  font-weight: 900;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 8px;
+  color: #78716c;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  width: 100%;
+  background: #1c1917;
+  border: 1px solid #444;
+  padding: 12px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 13px;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: #f59e0b;
+}
+
+.grid-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* Log Editor */
+.log-editor-box {
+  background: #000;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.log-line-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-bottom: 1px solid #1c1917;
+  color: #a8a29e;
+  font-size: 11px;
+  font-family: monospace;
+}
+
+.add-log-btn {
+  width: 100%;
+  background: transparent;
+  border: 1px dashed #444;
+  color: #444;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 9px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+/* Danger Zone */
+.danger-zone {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #ef444422;
+}
+
+.delete-report {
+  width: 100%;
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid #ef444444;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+/* CRT EFFECTS */
+.spin-slow {
+  animation: spin 4s linear infinite;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* CRT Scanline Overlay */
+.terminal-column::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 100;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  opacity: 0.1;
+}

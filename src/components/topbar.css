@@ -1,0 +1,255 @@
+/* =========================================
+   TOPBAR 1 - MAIN DASHBOARD HEADER 
+   (ALL USERNAME & UNDERLINE FIXES MAINTAINED)
+   ========================================= */
+.bige-topbar {
+  height: 170px; 
+  /* ENHANCED: Richer gradient with deep vault tones */
+  background: linear-gradient(135deg, #af641e 0%, #2563eb 100%); 
+  position: sticky;
+  top: 0;
+  width: 100%;
+  max-width: 490px;
+  margin: 0 auto;
+  z-index: 1000;
+  /* ENHANCED: Deeper shadow for elevation */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.bige-topbar__center {
+  position: absolute;
+  top: 24px; 
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  font-weight: 800;
+  font-family: Georgia, serif;
+  letter-spacing: 6px;
+  color: #ffffff;
+  text-transform: uppercase;
+  width: 100%;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.bige-header-group {
+  position: absolute;
+  top: 100px; 
+  left: 25px; 
+  display: flex;
+  align-items: center; /* Better vertical alignment */
+  gap: 14px;
+  width: auto;
+}
+
+.logo-image {
+  width: 38px; /* Slightly larger for clarity */
+  height: 38px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* 2. USER INFO GROUP - FORCED LEFT ALIGNMENT */
+.bige-topbar__user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start !important;
+  justify-content: flex-start;
+  text-align: left !important;
+  cursor: default !important;
+  text-decoration: none !important;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* NUCLEAR UNDERLINE REMOVAL - MAINTAINED */
+.bige-topbar__user-details, 
+.bige-topbar__user-details *,
+.user-name {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.user-name {
+  font-family: 'Trebuchet MS', sans-serif !important;
+  font-size: 14px !important; 
+  font-weight: 700; /* Bolder for "Master" feel */
+  color: #ffffff !important;
+  margin: 0 0 2px 0 !important;
+  padding: 0 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.2px;
+}
+
+.user-account-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.user-account {
+  font-size: 12px;
+  font-family: 'Courier New', monospace;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 1.5px;
+  margin: 2px 0 0 0 !important;
+  font-weight: 600;
+}
+
+/* 3. NAVIGATION ICONS - ENHANCED CLICK STATES */
+.bige-topbar__left,
+.bige-topbar__right {
+  position: absolute;
+  top: 20px; 
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px); /* Glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bige-topbar__left:active, .bige-topbar__right:active {
+  transform: scale(0.92);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.bige-topbar__left { left: 15px; }
+.bige-topbar__right { right: 15px; }
+
+/* =========================================
+   DRAWER (VAULT NAVIGATOR)
+   ========================================= */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.85); /* Deepest navy blur */
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  max-width: 490px;
+  margin: 0 auto;
+}
+
+.drawer-panel {
+  position: fixed;
+  top: 0;
+  left: 50%; 
+  margin-left: -245px; 
+  width: 290px;
+  height: 100vh;
+  background: #0f172a; 
+  box-shadow: 20px 0 60px rgba(0, 0, 0, 0.8);
+  transform: translateX(-100%); 
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2001;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.drawer-panel.open { transform: translateX(0); }
+
+.drawer-header {
+  padding: 50px 24px 30px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  margin-bottom: 15px;
+}
+
+.drawer-title {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.drawer-subtitle {
+  font-size: 10px;
+  color: #f59e0b; 
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 6px;
+  font-weight: 800;
+}
+
+.drawer-item {
+  padding: 14px 24px;
+  margin: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.drawer-item:hover { 
+  background: rgba(245, 158, 11, 0.08);
+  color: #ffffff;
+  transform: translateX(6px);
+}
+
+/* LIVE STATUS BAR - ENHANCED GLASS */
+.bige-status-bar {
+  position: absolute;
+  top: 120px; 
+  right: 25px; 
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.status-dot {
+  width: 7px; height: 7px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #22c55e;
+  animation: pulse-green 2s infinite;
+}
+
+.status-text { 
+  font-size: 9px; 
+  color: #ffffff; 
+  font-weight: 800; 
+  text-transform: uppercase; 
+  letter-spacing: 1px;
+}
+
+/* RESPONSIVE FIXES */
+@media (max-width: 490px) {
+  .drawer-panel { left: 0; margin-left: 0; }
+  .drawer-overlay { max-width: 100%; }
+}
+
+@keyframes pulse-green {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}

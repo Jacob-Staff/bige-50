@@ -1,0 +1,104 @@
+.statement-page {
+  background: #f8fafc;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statement-container {
+  width: 100%;
+  max-width: 490px;
+  padding: 0 20px 40px;
+  margin-top: -20px; /* Overlap Topbar2 */
+  box-sizing: border-box;
+}
+
+.search-wrapper {
+  background: white;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  height: 48px;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  margin-bottom: 25px;
+  border: 1px solid #e2e8f0;
+}
+
+.search-wrapper input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  padding-left: 5px;
+}
+
+.tx-row {
+  background: white;
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s;
+}
+
+.tx-left { display: flex; align-items: center; gap: 15px; }
+
+.tx-icon-bg {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-pos { background: #ecfdf5; color: #10b981; }
+.bg-neg { background: #fef2f2; color: #ef4444; }
+
+.tx-info strong { font-size: 14px; color: #0f172a; display: block; }
+.tx-ref { font-size: 11px; color: #94a3b8; margin-top: 2px; font-family: monospace; }
+
+.tx-right { text-align: right; }
+.tx-amount { font-weight: 800; font-size: 15px; display: block; }
+.positive { color: #10b981; }
+.negative { color: #0f172a; }
+
+.tx-right small { font-size: 10px; color: #94a3b8; font-weight: 600; text-transform: uppercase; }
+
+.done-btn {
+  width: 100%;
+  height: 54px;
+  background: #0f172a;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.loading-box { text-align: center; padding: 50px 0; color: #64748b; font-size: 14px; }
+.spinner { 
+  width: 24px; height: 24px; border: 3px solid #e2e8f0; border-top-color: #af641e; 
+  border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 15px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

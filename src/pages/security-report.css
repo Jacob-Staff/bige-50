@@ -1,0 +1,132 @@
+/* src/pages/security-report.css */
+
+/* THE CANVAS: This covers the X areas */
+.report-page-master {
+  background-color: #000000 !important;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* THE TERMINAL: The only visible area */
+.terminal-column {
+  width: 490px;
+  max-width: 100vw;
+  background-color: #010409;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* THE MASK: Solid black shadow extending 5000px horizontally */
+  box-shadow: 0 0 0 5000px #000000;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 10;
+}
+
+/* NAVIGATION */
+.report-nav {
+  width: 100%;
+  height: 64px;
+  background: #0f172a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.back-link {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.report-clearance {
+  font-size: 10px;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 900;
+}
+
+/* CONTENT CONTAINER */
+.report-container {
+  padding: 40px 20px;
+  flex: 1;
+}
+
+/* HEADER SECTION */
+.investigative-header { text-align: center; margin-bottom: 40px; }
+.investigative-header h1 { color: #fff; font-size: 20px; font-weight: 900; margin: 15px 0 5px; }
+.dossier-id { color: #64748b; font-size: 9px; font-family: monospace; }
+
+/* RISK CARD */
+.risk-score-card {
+  background: #0f172a;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 30px;
+}
+.score-main { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+.score-circle {
+  width: 50px; height: 50px; border: 3px solid #10b981; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.score-num { font-size: 20px; font-weight: 900; color: #10b981; line-height: 1; }
+.score-label { font-size: 6px; font-weight: 900; color: #10b981; }
+.score-text h3 { font-size: 14px; color: #10b981; margin: 0; }
+.score-text p { font-size: 10px; color: #94a3b8; margin: 4px 0 0; }
+
+.risk-metrics {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.metric span { font-size: 8px; color: #64748b; text-transform: uppercase; display: block; }
+.metric strong { font-size: 13px; color: #fff; }
+.metric strong.safe { color: #10b981; }
+.metric strong.verified { color: #f59e0b; }
+
+/* DATA GRID */
+.data-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  background: #0f172a; padding: 20px; border-radius: 12px; margin-bottom: 30px;
+}
+.data-item label { font-size: 8px; color: #64748b; text-transform: uppercase; }
+.data-item p { font-size: 11px; color: #fff; font-weight: 700; margin: 4px 0 0; }
+
+/* TIMELINE */
+.timeline-box { background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); }
+.timeline-item { display: flex; padding: 15px; border-bottom: 1px solid #111; gap: 15px; }
+.timeline-item.highlight { background: rgba(16, 185, 129, 0.05); }
+.time { color: #64748b; font-size: 9px; font-family: monospace; width: 50px; flex-shrink: 0; }
+.log-content strong { color: #fff; font-size: 11px; display: block; }
+.log-content p { color: #64748b; font-size: 10px; margin-top: 4px; }
+
+/* FOOTER */
+.download-btn {
+  width: 100%; background: #10b981; color: #fff; border: none; padding: 16px;
+  border-radius: 12px; font-weight: 900; font-size: 12px; cursor: pointer; margin-top: 30px;
+}
+.auth-stamp { text-align: center; color: #334155; font-size: 8px; margin-top: 20px; letter-spacing: 1px; }
+
+/* ANIMATIONS */
+.live-dot.pulse { animation: blink 1.5s infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes ripple { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(1.6); opacity: 0; } }

@@ -1,0 +1,120 @@
+/* src/pages/pay.css */
+
+.pay-page {
+  padding: 16px;
+  background: #f3f4f6;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.pay-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.back-btn {
+  background: white;
+  border: none;
+  border-radius: 10px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+/* CARD */
+.pay-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* MERCHANT */
+.merchant-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.merchant-icon {
+  background: #e0e7ff;
+  color: #1e40af;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+.merchant-label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.merchant-hint {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.pay-card label {
+  font-size: 13px;
+  color: #374151;
+}
+
+.pay-card input,
+.pay-card select {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+/* AMOUNT */
+.amount-row {
+  display: flex;
+  gap: 8px;
+}
+
+.amount-row input {
+  flex: 2;
+}
+
+.amount-row select {
+  flex: 1;
+}
+
+/* BUTTON */
+.pay-btn {
+  margin-top: 12px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* SUMMARY */
+.pay-summary {
+  margin-top: 16px;
+  background: white;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.summary-row.total {
+  font-weight: 600;
+}

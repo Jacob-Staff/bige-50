@@ -1,0 +1,50 @@
+/* FORCE DESKTOP LAYOUT */
+.admin-desktop-view {
+  background: #000000;
+  min-height: 100vh;
+  width: 100%;
+  display: block;
+}
+
+.admin-page {
+  width: 100%;
+  max-width: 1600px; /* Adjust for ultra-wide screens */
+  margin: 0 auto;
+}
+
+.admin-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* THE GRID SYSTEM */
+.admin-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns for Registry and Monitor */
+  gap: 20px;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .admin-main-grid {
+    grid-template-columns: 1fr; /* Stack on small laptops/tablets */
+  }
+}
+
+.terminal-section {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  height: 650px; /* Fixed height for scrolling */
+  display: flex;
+  flex-direction: column;
+}
+
+.registry-list, .tx-monitor {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.mt-20 { margin-top: 0 !important; } /* Reset manual margins for grid */

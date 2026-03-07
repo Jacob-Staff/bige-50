@@ -1,0 +1,152 @@
+/* =========================
+   GLOBAL RESET
+   ========================= */
+* {
+  box-sizing: border-box; /* This ensures padding doesn't add to width */
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================
+   ADD MONEY PAGE (Maintained & Centered)
+   ========================= */
+.add-money-page {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 490px; /* Locked to your Topbar width */
+  margin: 0 auto;
+  position: relative;
+  overflow-x: hidden; /* Safety net to kill horizontal scroll */
+  display: flex;
+  flex-direction: column;
+}
+
+.add-money-container {
+  padding: 20px 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Balance Preview Card (Maintained) */
+.balance-preview {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+  width: 100%; /* Force standard width */
+}
+
+.preview-label {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.preview-amount {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-top: 4px;
+}
+
+.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 16px;
+  padding-left: 4px;
+}
+
+/* Methods List (Maintained) */
+.methods-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.method-card {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  border: 1px solid #f1f5f9;
+  transition: transform 0.2s ease;
+  width: 100%; /* Ensure card doesn't exceed container */
+}
+
+.method-card:active {
+  transform: scale(0.98);
+  background-color: #f8fafc;
+}
+
+.icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  flex-shrink: 0; /* Prevents icon from getting squished when width is tight */
+}
+
+.method-info {
+  flex: 1;
+  min-width: 0; /* THE MAGIC FIX: Prevents text from stretching the card */
+}
+
+.method-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds "..." if text is too long */
+}
+
+.method-desc {
+  font-size: 12px;
+  color: #64748b;
+  word-wrap: break-word; /* Allows text to go to next line */
+}
+
+.chevron-icon {
+  color: #cbd5e1;
+  flex-shrink: 0; /* Keeps arrow aligned */
+}
+
+.method-icon-blue { color: #0284c7; }
+.method-icon-orange { color: #ea580c; }
+.method-icon-green { color: #16a34a; }
+
+.help-box {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 13px;
+  color: #64748b;
+  padding: 0 20px;
+}
+
+/* UI Feedback (Maintained) */
+.pay-btn:disabled {
+  background-color: #cbd5e1 !important;
+  cursor: not-allowed;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
