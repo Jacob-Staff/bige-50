@@ -54,7 +54,7 @@ export default function AddMoney() {
       const depositAmount = parseFloat(amount);
       const newBalance = balance + depositAmount;
 
-      // UPDATE 'wallets' table to match Dashboard/Withdraw logic
+      // 1. Update the balance in the 'wallets' table
       const { error: updateError } = await supabase
         .from('wallets')
         .update({ balance: newBalance })
@@ -62,14 +62,13 @@ export default function AddMoney() {
 
       if (updateError) throw updateError;
 
-      // Record the transaction in 'bridge_transactions' for Dashboard visibility
+      // 2. Record the transaction (Removed 'recipient_id' to fix schema error)
       const { error: txError } = await supabase
         .from('bridge_transactions')
         .insert([{
-          sender_id: user.id, // In a deposit, the user is the recipient but we use sender_id logic for the 'In' label
-          recipient_id: user.id,
+          sender_id: user.id,
           amount: depositAmount,
-          recipient_bank: "Internal Funding",
+          recipient_bank: "Wallet Top-up",
           recipient_account: selectedMethod.title,
           status: 'completed'
         }]);
