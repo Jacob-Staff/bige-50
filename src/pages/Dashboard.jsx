@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import {
   Home, User, Eye, EyeOff, TrendingDown, ArrowUpRight, ArrowDownLeft,
-  ShieldCheck, RefreshCw, Globe, ArrowRightLeft, Link, Cpu, ChevronRight, Download, Activity
+  ShieldCheck, RefreshCw, Globe, ArrowRightLeft, Link, Cpu, ChevronRight, Download, Activity, Landmark
 } from "lucide-react";
 
 import Topbar from "../components/Topbar";
@@ -36,7 +36,7 @@ export default function Dashboard() {
       if (profileError) throw profileError;
       setProfile(profileData);
 
-      // Fetch Wallet Balance - Ensuring we default to 0 if no record exists
+      // Fetch Wallet Balance
       const { data: walletData, error: walletError } = await supabase
         .from('wallets')
         .select('balance')
@@ -46,11 +46,10 @@ export default function Dashboard() {
       if (walletData) {
         setWallet(walletData);
       } else if (walletError && walletError.code === 'PGRST116') {
-        // If no wallet exists yet, we assume 0
         setWallet({ balance: 0 });
       }
 
-      // Fetch Recent Activity (Bridge & Settlement)
+      // Fetch Recent Activity
       const { data: txData } = await supabase
         .from('bridge_transactions')
         .select('*')
@@ -77,11 +76,10 @@ export default function Dashboard() {
     }
   }, [navigate]);
 
-  // 2. Real-time Node Monitoring (The "Live" Part)
+  // 2. Real-time Node Monitoring
   useEffect(() => {
     getDashboardData();
     
-    // Subscribe to changes in the 'wallets' table specifically for this user
     const walletSubscription = supabase
       .channel('wallet_updates')
       .on('postgres_changes', 
@@ -91,18 +89,15 @@ export default function Dashboard() {
           table: 'wallets' 
         }, 
         (payload) => {
-          // Only update if the changed wallet belongs to our user
           if (profile && payload.new.user_id === profile.id) {
             setWallet({ balance: payload.new.balance });
           } else {
-            // Fallback: refresh all data to be safe
             getDashboardData();
           }
         }
       )
       .subscribe();
 
-    // Subscribe to new transactions
     const txSubscription = supabase
       .channel('tx_updates')
       .on('postgres_changes', 
@@ -117,14 +112,15 @@ export default function Dashboard() {
     };
   }, [getDashboardData, profile?.id]);
 
+  // UPDATED ACTIONS: Removed Vote, Added Deposit
   const actions = [
     { icon: <ShieldCheck size={22} />, label: "Afribas", path: "/afribas", active: true },
+    { icon: <Landmark size={22} />, label: "Deposit", path: "/deposit" }, // New Deposit Action
     { icon: <RefreshCw size={22} />, label: "Transfer", path: "/transfer" },
     { icon: <ArrowRightLeft size={22} />, label: "Asset Swap", path: "/swap" },
     { icon: <TrendingDown size={22} />, label: "Econo-Plus", path: "/invest", special: true }, 
     { icon: <Link size={22} />, label: "Pay Links", path: "/links" }, 
     { icon: <Download size={22} />, label: "Withdraw", path: "/withdraw" },
-    { icon: <Globe size={22} />, label: "Forum", path: "/forum" }, 
     { icon: <Cpu size={22} />, label: "Vault", path: "/vault" }
   ];
 
@@ -141,7 +137,6 @@ export default function Dashboard() {
         
         <div className="app-content">
           
-          {/* INSTITUTIONAL STATUS BAR */}
           <div className="status-strip">
              <div className="status-item">
                 <Activity size={12} className="pulse-icon" />
@@ -152,7 +147,6 @@ export default function Dashboard() {
              </div>
           </div>
 
-          {/* BALANCE TERMINAL */}
           <div className="wallet-card">
             <div className="wallet-top">
               <div className="wallet-title">
@@ -171,7 +165,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* GRID ACTIONS */}
           <div className="quick-actions">
             {actions.map((action, i) => (
               <div 
@@ -185,7 +178,6 @@ export default function Dashboard() {
             ))}
           </div>
 
-          {/* CRITICAL ALERTS */}
           {notifications.length > 0 && (
             <div className="dash-notifications">
               <div className="mini-header">
@@ -207,7 +199,6 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* BRIDGE ACTIVITY */}
           <div className="mini-statement">
             <div className="mini-header">
               <h3>Bige-50 Activity</h3>
@@ -242,7 +233,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* INSTITUTIONAL OFFERS */}
           <div className="offers-section">
             <div className="offers-header">Market Intel</div>
             <div className="offers-scroll">
@@ -257,7 +247,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* DOCK NAV */}
           <div className="bottom-nav">
             <div className="bottom-nav-item active" onClick={() => navigate("/dashboard")}><Home size={22} /></div>
             <div className="bottom-nav-item" onClick={() => navigate("/transfer")}><RefreshCw size={22} /></div>

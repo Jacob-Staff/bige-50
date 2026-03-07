@@ -14,7 +14,7 @@ import Manage from "./pages/Manage";
 import Privacy from "./pages/Privacy";
 import Support from "./pages/Support";
 import SecurityReport from "./pages/SecurityReport";
-import Membership from "./pages/Membership"; // ADDED THIS IMPORT
+import Membership from "./pages/Membership";
 
 // INSTITUTIONAL OBJECTIVES (Bige-50 Protocol)
 import Swap from "./pages/Swap";           
@@ -35,6 +35,7 @@ import LoanApplication from "./pages/LoanApplication";
 // TRANSACTIONAL TOOLS
 import Transfer from "./pages/Transfer";    
 import Withdraw from "./pages/Withdraw";    
+import AddMoney from "./pages/AddMoney"; // ADDED: Deposit Page Import
 import Statement from "./pages/Statement";
 import Notifications from "./pages/Notifications";
 import TransactionsList from "./pages/TransactionsList";
@@ -115,7 +116,6 @@ export default function App() {
         .single();
       
       if (!error && data) {
-        console.log("[AUTH] Role detected:", data.role);
         setUserRole(data.role);
       } else {
         setUserRole('user'); 
@@ -138,19 +138,14 @@ export default function App() {
 
   return (
     <Routes>
-      {/* 1. ENTRY POINT */}
       <Route path="/" element={
         session === undefined ? <ProtectedRoute session={session} /> : 
         session ? <Navigate to={getHomePath()} replace /> : <Navigate to="/login" replace />
       } />
 
-      {/* 2. PUBLIC CHANNELS */}
       <Route path="/login" element={session ? <Navigate to={getHomePath()} replace /> : <Login />} />
-      
-      {/* CHANGED: Removed Navigate to home so logged in users can still access Register page if needed */}
       <Route path="/register" element={<Register />} />
 
-      {/* 3. CORE DASHBOARDS */}
       <Route path="/dashboard" element={
         <ProtectedRoute session={session}>
           {userRole === 'admin' ? <Navigate to="/admin/dashboard" replace /> : <Dashboard />}
@@ -163,38 +158,33 @@ export default function App() {
         </ProtectedRoute>
       } />
 
-      {/* 4. MAJOR BIGE-50 ROUTING */}
       <Route path="/bige-50" element={
         <ProtectedRoute session={session}>
           {userRole === 'admin' ? <AdminDashboard /> : <Bige50User />}
         </ProtectedRoute>
       } />
 
-      {/* 5. ADMIN MANAGEMENT */}
       <Route path="/admin/management/:id" element={
         <ProtectedRoute session={session}>
           {userRole === 'admin' ? <AdminManagement /> : <Navigate to="/dashboard" replace />}
         </ProtectedRoute>
       } />
 
-      {/* 6. SYSTEM UTILITIES */}
       <Route path="/afribas" element={<ProtectedRoute session={session}><Afribas /></ProtectedRoute>} />
       <Route path="/security-report" element={<ProtectedRoute session={session}><SecurityReport /></ProtectedRoute>} />
       <Route path="/certificate" element={<ProtectedRoute session={session}><Certificate /></ProtectedRoute>} />
       <Route path="/nodes" element={<ProtectedRoute session={session}><NodesMap /></ProtectedRoute>} />
       
-      {/* 7. ASSET MANAGEMENT */}
       <Route path="/swap" element={<ProtectedRoute session={session}><Swap /></ProtectedRoute>} />
       <Route path="/vault" element={<ProtectedRoute session={session}><Vault /></ProtectedRoute>} />
       <Route path="/invest" element={<ProtectedRoute session={session}><EconoPlus /></ProtectedRoute>} />
       <Route path="/loan-application" element={<LoanApplication />} />
       
-      {/* 8. SETTLEMENT & BRIDGE */}
       <Route path="/transfer" element={<ProtectedRoute session={session}><Transfer /></ProtectedRoute>} />
       <Route path="/withdraw" element={<ProtectedRoute session={session}><Withdraw /></ProtectedRoute>} />
+      <Route path="/deposit" element={<ProtectedRoute session={session}><AddMoney /></ProtectedRoute>} /> {/* ADDED: Deposit Route */}
       <Route path="/links" element={<ProtectedRoute session={session}><PayLinks /></ProtectedRoute>} />
       
-      {/* 9. NETWORKING & DATA */}
       <Route path="/forum" element={<ProtectedRoute session={session}><Forum /></ProtectedRoute>} />
       <Route path="/forum/new" element={<ProtectedRoute session={session}><NewPost /></ProtectedRoute>} />
       <Route path="/forum/:id" element={<ProtectedRoute session={session}><ThreadDetail /></ProtectedRoute>} />
@@ -204,13 +194,11 @@ export default function App() {
       <Route path="/statement" element={<ProtectedRoute session={session}><Statement /></ProtectedRoute>} />
       <Route path="/notifications" element={<ProtectedRoute session={session}><Notifications /></ProtectedRoute>} />
 
-      {/* 10. SETTINGS & IDENTITY */}
       <Route path="/profile" element={<ProtectedRoute session={session}><Profile /></ProtectedRoute>} />
       <Route path="/manage" element={<ProtectedRoute session={session}><Manage /></ProtectedRoute>} />
       <Route path="/privacy" element={<ProtectedRoute session={session}><Privacy /></ProtectedRoute>} />
       <Route path="/support" element={<ProtectedRoute session={session}><Support /></ProtectedRoute>} />
       
-      {/* ADDED: Membership Route */}
       <Route path="/membership" element={<ProtectedRoute session={session}><Membership /></ProtectedRoute>} />
 
       <Route path="*" element={<Navigate to={getHomePath()} replace />} />

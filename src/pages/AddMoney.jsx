@@ -1,30 +1,32 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../lib/supabaseClient"; // 👈 Connect to Cloud
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../lib/supabaseClient"; 
 import "./AddMoney.css";
 import { Smartphone, Landmark, UserCheck, ChevronRight, Loader2, CheckCircle } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
 
 export default function AddMoney() {
+  const navigate = useNavigate();
   const [balance, setBalance] = useState(0);
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // 1. Fetch real balance from Supabase Profiles
+  // 1. Fetch real balance from the dedicated 'wallets' table
   const fetchBalance = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
       const { data, error } = await supabase
-        .from('profiles')
-        .select('wallet_balance')
-        .eq('id', user.id)
+        .from('wallets')
+        .select('balance')
+        .eq('user_id', user.id)
         .single();
 
-      if (error) throw error;
-      setBalance(data.wallet_balance);
+      if (error && error.code !== 'PGRST116') throw error;
+      setBalance(data?.balance || 0);
     } catch (err) {
       console.error("Balance sync failed:", err.message);
     }
@@ -32,7 +34,7 @@ export default function AddMoney() {
 
   useEffect(() => {
     fetchBalance();
-  }, [success]); // Refetch balance whenever a success happens
+  }, [success]);
 
   const methods = [
     { id: 1, title: "Mobile Money", desc: "Instantly via MTN or Airtel", icon: <Smartphone className="method-icon-blue" />, color: "#e0f2fe" },
@@ -42,28 +44,32 @@ export default function AddMoney() {
 
   // 2. Handle Cloud Deposit
   const handleDeposit = async () => {
+    if (!amount || parseFloat(amount) <= 0) return;
+    
     setLoading(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Session expired. Please login again.");
       
       const depositAmount = parseFloat(amount);
       const newBalance = balance + depositAmount;
 
-      // Update the profile balance
+      // UPDATE 'wallets' table to match Dashboard/Withdraw logic
       const { error: updateError } = await supabase
-        .from('profiles')
-        .update({ wallet_balance: newBalance })
-        .eq('id', user.id);
+        .from('wallets')
+        .update({ balance: newBalance })
+        .eq('user_id', user.id);
 
       if (updateError) throw updateError;
 
-      // Record the transaction as a "DEPOSIT"
+      // Record the transaction in 'bridge_transactions' for Dashboard visibility
       const { error: txError } = await supabase
         .from('bridge_transactions')
         .insert([{
-          sender_id: user.id,
+          sender_id: user.id, // In a deposit, the user is the recipient but we use sender_id logic for the 'In' label
+          recipient_id: user.id,
           amount: depositAmount,
-          recipient_bank: "Wallet Top-up",
+          recipient_bank: "Internal Funding",
           recipient_account: selectedMethod.title,
           status: 'completed'
         }]);
@@ -86,7 +92,7 @@ export default function AddMoney() {
       <div className="add-money-container">
         <div className="balance-preview">
           <span className="preview-label">Current Balance</span>
-          <h2 className="preview-amount">K {parseFloat(balance).toLocaleString(undefined, {minimumFractionDigits: 2})}</h2>
+          <h2 className="preview-amount">K {Number(balance).toLocaleString(undefined, {minimumFractionDigits: 2})}</h2>
         </div>
 
         {!selectedMethod && (
@@ -130,7 +136,7 @@ export default function AddMoney() {
             >
               {loading ? <Loader2 className="animate-spin" /> : "Confirm Deposit"}
             </button>
-            <button onClick={() => setSelectedMethod(null)} style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '13px' }}>
+            <button onClick={() => setSelectedMethod(null)} style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '13px', marginTop: '10px' }}>
               Cancel
             </button>
           </div>
@@ -142,10 +148,10 @@ export default function AddMoney() {
             <h3 className="method-title">Deposit Successful</h3>
             <p className="method-desc" style={{ marginBottom: '20px' }}>Your wallet has been credited.</p>
             <button 
-              onClick={() => { setSuccess(false); setSelectedMethod(null); setAmount(""); }}
-              style={{ width: '100%', padding: '12px', borderRadius: '10px', background: '#1e293b', color: 'white', border: 'none' }}
+              onClick={() => navigate("/dashboard")}
+              style={{ width: '100%', padding: '12px', borderRadius: '10px', background: '#1e293b', color: 'white', border: 'none', fontWeight: '700' }}
             >
-              Done
+              Return to Dashboard
             </button>
           </div>
         )}
