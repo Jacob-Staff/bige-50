@@ -22,7 +22,6 @@ export default function Withdraw() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
     
-    // Updated to fetch from 'wallets' table
     const { data } = await supabase
       .from('wallets')
       .select('balance')
@@ -57,26 +56,37 @@ export default function Withdraw() {
 
       const generatedRef = `WD-${Math.floor(100000 + Math.random() * 900000)}`;
 
-      // INSERT TRANSACTION 
-      // Note: We set status to 'pending' or 'processing'. 
-      // Your DB trigger handle_withdrawal() will manage the wallet balance subtraction.
-const { error: txError } = await supabase
-  .from('transactions')
-  .insert([{
-    user_id: user.id,
-    amount: withdrawalAmount,
-    fee: parseFloat(withdrawalFee),
-    bank_name: provider,      // Must match DB column name
-    account_number: account,  // Must match DB column name
-    type: 'withdrawal',
-    method: method,
-    status: 'pending',
-    reference_number: generatedRef
-  }]);
-      if (txError) throw new Error("Ledger insertion failed: " + txError.message);
+      // 1. UPDATE WALLET BALANCE FIRST (Direct Subtraction)
+      const { error: walletError } = await supabase
+        .from('wallets')
+        .update({ balance: balance - totalToSubtract })
+        .eq('user_id', user.id);
+
+      if (walletError) throw new Error("Wallet update failed: " + walletError.message);
+
+      // 2. INSERT TRANSACTION INTO LEDGER
+      const { error: txError } = await supabase
+        .from('transactions')
+        .insert([{
+          user_id: user.id,
+          amount: withdrawalAmount,
+          fee: parseFloat(withdrawalFee),
+          bank_name: provider,      
+          account_number: account,  
+          type: 'withdrawal',
+          method: method,
+          status: 'pending',
+          reference_number: generatedRef
+        }]);
+
+      if (txError) {
+        // Rollback balance if transaction record fails (Safety Measure)
+        await supabase.from('wallets').update({ balance: balance }).eq('user_id', user.id);
+        throw new Error("Ledger insertion failed: " + txError.message);
+      }
 
       alert("Bridge Settlement Initiated. Reference: " + generatedRef);
-      navigate("/dashboard"); // Redirect back to dashboard to see updated status
+      navigate("/dashboard"); 
     } catch (err) {
       console.error(err);
       alert("Settlement Error: " + err.message);
