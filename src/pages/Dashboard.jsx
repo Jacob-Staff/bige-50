@@ -20,13 +20,11 @@ export default function Dashboard() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [showBalance, setShowBalance] = useState(true);
 
-  // 1. Unified Institutional Data Fetcher
   const getDashboardData = useCallback(async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { navigate("/login"); return; }
 
-      // Fetch Profile
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('id, full_name, afribas_id, risk_index, is_quarantined') 
@@ -36,7 +34,6 @@ export default function Dashboard() {
       if (profileError) throw profileError;
       setProfile(profileData);
 
-      // Fetch Wallet Balance
       const { data: walletData, error: walletError } = await supabase
         .from('wallets')
         .select('balance')
@@ -49,7 +46,6 @@ export default function Dashboard() {
         setWallet({ balance: 0 });
       }
 
-      // Fetch Recent Activity
       const { data: txData } = await supabase
         .from('bridge_transactions')
         .select('*')
@@ -59,7 +55,6 @@ export default function Dashboard() {
 
       setTransactions(txData || []);
 
-      // Fetch Unread Notifications
       const { data: notifData } = await supabase
         .from('notifications')
         .select('*')
@@ -76,18 +71,13 @@ export default function Dashboard() {
     }
   }, [navigate]);
 
-  // 2. Real-time Node Monitoring
   useEffect(() => {
     getDashboardData();
     
     const walletSubscription = supabase
       .channel('wallet_updates')
       .on('postgres_changes', 
-        { 
-          event: 'UPDATE', 
-          schema: 'public', 
-          table: 'wallets' 
-        }, 
+        { event: 'UPDATE', schema: 'public', table: 'wallets' }, 
         (payload) => {
           if (profile && payload.new.user_id === profile.id) {
             setWallet({ balance: payload.new.balance });
@@ -112,16 +102,16 @@ export default function Dashboard() {
     };
   }, [getDashboardData, profile?.id]);
 
-  // UPDATED ACTIONS: Removed Vote, Added Deposit
+  // UPDATED ACTIONS: Deposit added, Forum restored, Vault removed
   const actions = [
     { icon: <ShieldCheck size={22} />, label: "Afribas", path: "/afribas", active: true },
-    { icon: <Landmark size={22} />, label: "Deposit", path: "/deposit" }, // New Deposit Action
+    { icon: <Landmark size={22} />, label: "Deposit", path: "/deposit" }, 
     { icon: <RefreshCw size={22} />, label: "Transfer", path: "/transfer" },
     { icon: <ArrowRightLeft size={22} />, label: "Asset Swap", path: "/swap" },
     { icon: <TrendingDown size={22} />, label: "Econo-Plus", path: "/invest", special: true }, 
     { icon: <Link size={22} />, label: "Pay Links", path: "/links" }, 
     { icon: <Download size={22} />, label: "Withdraw", path: "/withdraw" },
-    { icon: <Cpu size={22} />, label: "Vault", path: "/vault" }
+    { icon: <Globe size={22} />, label: "Forum", path: "/forum" } // Forum restored here
   ];
 
   return (
@@ -136,7 +126,6 @@ export default function Dashboard() {
         />
         
         <div className="app-content">
-          
           <div className="status-strip">
              <div className="status-item">
                 <Activity size={12} className="pulse-icon" />
