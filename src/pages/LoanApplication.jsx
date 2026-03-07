@@ -6,7 +6,7 @@ import {
   Info, AlertCircle, CheckCircle2, Loader2 
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./loanapp.css";
+import "./Loanapp.css";
 
 export default function LoanApplication() {
   const navigate = useNavigate();

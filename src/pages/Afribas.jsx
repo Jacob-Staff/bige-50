@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
 import { generateAfribasId } from "../utils/afribasUtils"; 
-import "./afribas.css";
+import "./Afribas.css";
 
 export default function Afribas() {
   const navigate = useNavigate();

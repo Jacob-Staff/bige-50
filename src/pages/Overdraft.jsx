@@ -3,7 +3,7 @@ import { Info, AlertCircle, CheckCircle2, Zap, Loader2 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient"; // 👈 Your Cloud Connection
-import "./overdraft.css";
+import "./Overdraft.css";
 
 export default function Overdraft() {
   const [amount, setAmount] = useState("");

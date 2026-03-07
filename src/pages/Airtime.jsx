@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient"; // 👈 Cloud Connection
 import { Phone, ChevronRight, Loader2 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./payBills.css"; 
+import "./PayBills.css"; 
 
 export default function Airtime() {
   const navigate = useNavigate();

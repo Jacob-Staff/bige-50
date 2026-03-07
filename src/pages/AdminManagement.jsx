@@ -8,7 +8,7 @@ import {
   ShieldCheck, Lock, Unlock
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./admin-management.css";
+import "./Admin-management.css";
 
 export default function AdminManagement() {
   const [users, setUsers] = useState([]);

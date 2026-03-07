@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import Topbar2 from "../components/Topbar2";
 import { Search, Download, Filter, ArrowUpRight, ArrowDownLeft, FileText } from "lucide-react";
-import "./statement.css"; // Reusing your statement styles
+import "./Statement.css"; // Reusing your statement styles
 
 export default function FullStatement() {
   const navigate = useNavigate();

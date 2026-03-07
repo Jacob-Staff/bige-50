@@ -3,7 +3,7 @@ import {
   Settings, Save, Edit3, Trash2, ArrowLeft 
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./admin-control.css";
+import "./Admin-control.css";
 
 export default function AdminManagement() {
   const navigate = useNavigate();

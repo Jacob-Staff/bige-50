@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { generateAfribasId } from "../utils/afribasUtils"; 
-import "./admin-dashboard.css";
+import "./Admin-dashboard.css";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();

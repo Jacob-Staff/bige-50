@@ -7,7 +7,7 @@ import {
   Activity, Fingerprint, Zap
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./swap.css";
+import "./Swap.css";
 
 export default function Swap() {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import {
   ShieldCheck, Cpu, Globe, ArrowRightLeft, 
   ExternalLink, Fingerprint, Activity 
 } from "lucide-react";
-import "./afribas.css";
+import "./Afribas.css";
 
 export default function AfribasLedger({ afribasId = "AF-992-001-BIGE", digitalBalances = [] }) {
   // Default values for Objective 2 Digital Assets if props aren't passed

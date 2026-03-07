@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import Topbar2 from "../components/Topbar2";
 import { ArrowUpRight, ArrowDownLeft, Search, FileText, Calendar } from "lucide-react";
-import "./statement.css";
+import "./Statement.css";
 
 export default function Statement() {
   const navigate = useNavigate();

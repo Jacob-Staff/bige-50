@@ -8,7 +8,7 @@ import {
 
 import Topbar from "../components/Topbar";
 import Drawer from "../components/Drawer";
-import "./dashboard.css";
+import "./Dashboard.css";
 
 export default function Dashboard() {
   const navigate = useNavigate();

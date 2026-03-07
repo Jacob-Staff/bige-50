@@ -6,7 +6,7 @@ import {
   Loader2, Globe, Send, ThumbsUp, Heart, MoreVertical
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./forum.css";
+import "./Forum.css";
 
 export default function ThreadDetail() {
   const { id } = useParams();

@@ -9,8 +9,8 @@ import {
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import Topbar2 from "../components/Topbar2";
-import "./transactionDetails.css";
-import "./compliance.css"; 
+import "./TransactionDetails.css";
+import "./Compliance.css"; 
 
 export default function TransactionDetails() {
   const { id } = useParams();

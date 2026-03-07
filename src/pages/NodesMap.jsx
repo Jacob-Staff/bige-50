@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Globe, Radio, Zap, ShieldCheck, Activity } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./nodesMap.css";
+import "./NodesMap.css";
 
 const REGIONAL_NODES = [
   { id: 1, country: "Zambia", city: "Lusaka", status: "Active", latency: "24ms", load: "12%" },

@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
 import Topbar2 from "../components/Topbar2";
-import "./forum.css";
+import "./Forum.css";
 
 export default function Forum() {
   const navigate = useNavigate();

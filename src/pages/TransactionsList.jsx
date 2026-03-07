@@ -14,7 +14,7 @@ import {
   Landmark
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./transactionsList.css";
+import "./TransactionsList.css";
 
 export default function TransactionsList() {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient"; // 👈 Cloud connection
 import { Zap, Info, Loader2 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./electricityPay.css";
+import "./ElectricityPay.css";
 
 export default function ElectricityPay() {
   const navigate = useNavigate();

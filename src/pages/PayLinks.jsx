@@ -7,7 +7,7 @@ import {
   ExternalLink, Trash2
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./paylinks.css";
+import "./Paylinks.css";
 
 export default function PayLinks() {
   const navigate = useNavigate();

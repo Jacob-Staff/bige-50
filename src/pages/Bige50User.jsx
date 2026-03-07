@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
 import { generateAfribasId } from "../utils/afribasUtils"; 
-import "./afribas.css"; // We can keep the CSS filename or rename to bige50.css later
+import "./Afribas.css"; // We can keep the CSS filename or rename to bige50.css later
 
 export default function Bige50User() {
   const navigate = useNavigate();

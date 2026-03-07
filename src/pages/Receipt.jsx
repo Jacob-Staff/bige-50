@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { CheckCircle, Share2, Download, Home } from "lucide-react";
-import "./receipt.css";
+import "./Receipt.css";
 
 export default function Receipt() {
   const navigate = useNavigate();

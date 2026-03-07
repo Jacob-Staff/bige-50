@@ -7,7 +7,7 @@ import {
   ExternalLink, Fingerprint, Loader2, X, Copy, CheckCircle
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./vault.css";
+import "./Vault.css";
 
 export default function Vault() {
   const navigate = useNavigate();

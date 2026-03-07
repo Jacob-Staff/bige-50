@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient"; // 👈 Connect to Cloud
-import "./addMoney.css";
+import "./AddMoney.css";
 import { Smartphone, Landmark, UserCheck, ChevronRight, Loader2, CheckCircle } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
 

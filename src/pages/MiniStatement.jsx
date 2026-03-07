@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { ArrowUpRight, ArrowDownLeft, Clock } from "lucide-react";
-import "./statement.css";
+import "./Statement.css";
 
 export default function MiniStatement({ onViewAll }) {
   const [transactions, setTransactions] = useState([]);

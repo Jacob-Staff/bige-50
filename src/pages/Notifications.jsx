@@ -5,7 +5,7 @@ import {
   ArrowDownLeft, ShieldAlert, Tag, Bell, CheckCheck, Trash2, Loader2 
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./notifications.css"; 
+import "./Notifications.css"; 
 
 export default function Notifications() {
   const navigate = useNavigate();

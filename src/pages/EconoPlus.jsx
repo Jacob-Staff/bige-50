@@ -7,7 +7,7 @@ import {
   PieChart, Activity, RefreshCw, AlertCircle
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./econoplus.css";
+import "./Econoplus.css";
 
 export default function EconoPlus() {
   const navigate = useNavigate();

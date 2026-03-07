@@ -13,7 +13,7 @@ import {
   ChevronRight,
   Zap
 } from "lucide-react";
-import "./membership.css";
+import "./Membership.css";
 
 export default function Membership() {
   const navigate = useNavigate();

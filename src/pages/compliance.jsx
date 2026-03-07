@@ -9,7 +9,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
-import "./compliance.css";
+import "./Compliance.css";
 
 export default function ComplianceScreen({ transactionId, onVerified }) {
   const [verifying, setVerifying] = useState(false);

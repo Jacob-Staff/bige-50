@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
 import Topbar2 from "../components/Topbar2";
-import "./wallet.css";
+import "./Wallet.css";
 
 export default function Wallet() {
   const navigate = useNavigate();

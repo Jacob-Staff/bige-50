@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { Store, Loader2, Info } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./pay.css";
+import "./Pay.css";
 
 export default function Pay() {
   const navigate = useNavigate();

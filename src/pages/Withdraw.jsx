@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient"; 
 import { Loader2, ShieldCheck, Landmark, ArrowDownToLine, Info } from "lucide-react";
-import "./withdraw.css";
+import "./Withdraw.css";
 import Topbar2 from "../components/Topbar2";
 
 export default function Withdraw() {

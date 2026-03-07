@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient"; 
 import { Eye, EyeOff, Loader2, ShieldCheck, Lock, Mail } from "lucide-react";
-import "./login.css";
+import "./Login.css";
 
 export default function Login() {
   const navigate = useNavigate();

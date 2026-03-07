@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
 import { supabase } from "../lib/supabaseClient";
-import "./transfer.css";
+import "./Transfer.css";
 
 export default function Transfer() {
   const navigate = useNavigate();

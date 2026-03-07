@@ -11,7 +11,7 @@ import {
   Star 
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./payBills.css"; // Reusing the clean form styles
+import "./PayBills.css"; // Reusing the clean form styles
 
 export default function Goods() {
   const navigate = useNavigate();

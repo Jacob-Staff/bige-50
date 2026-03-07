@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
-import "./security-report.css";
+import "./Security-report.css";
 
 export default function SecurityReport() {
   const navigate = useNavigate();

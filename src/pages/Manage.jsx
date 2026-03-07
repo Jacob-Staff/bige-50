@@ -7,7 +7,7 @@ import {
   Loader2, ArrowLeft, CheckCircle2, MessageCircle, Globe
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./payBills.css"; 
+import "./PayBills.css"; 
 
 export default function Manage() {
   const navigate = useNavigate();

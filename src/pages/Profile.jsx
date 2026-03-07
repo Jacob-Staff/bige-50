@@ -7,7 +7,7 @@ import {
   ChevronRight, Lock, HelpCircle, Camera
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./profile.css"; 
+import "./Profile.css"; 
 
 export default function Profile() {
   const navigate = useNavigate();

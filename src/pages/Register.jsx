@@ -13,7 +13,7 @@ import {
   Landmark,
   Lock,
 } from "lucide-react";
-import "./register.css";
+import "./Register.css";
 
 export default function Register() {
   const navigate = useNavigate();

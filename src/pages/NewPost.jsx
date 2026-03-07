@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { ArrowLeft, Send, Loader2 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./forum.css";
+import "./Forum.css";
 
 export default function NewPost() {
   const navigate = useNavigate();

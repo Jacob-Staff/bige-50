@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Lock, Fingerprint, Globe, Shield, ShieldCheck } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./privacy.css"; // 👈 Import your new CSS
+import "./Privacy.css"; // 👈 Import your new CSS
 
 export default function Privacy() {
   const navigate = useNavigate();

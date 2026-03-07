@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { ShieldCheck, Award, ChevronLeft, Download, Printer } from "lucide-react";
-import "./certificate.css";
+import "./Certificate.css";
 
 export default function Certificate() {
   const navigate = useNavigate();

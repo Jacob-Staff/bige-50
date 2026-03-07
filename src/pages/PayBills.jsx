@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./payBills.css";
+import "./PayBills.css";
 import { 
   GraduationCap, Zap, Tv, Droplets, Sun, 
   ChevronRight, Loader2 
