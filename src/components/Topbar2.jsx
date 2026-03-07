@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, Home, ShieldCheck } from "lucide-react"; 
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
-import "../pages/dashboard.css"; 
+import "../pages/Dashboard.css"; 
 import './Topbar2.css';
 export default function Topbar2({ title = "Page", onBack }) {
   const navigate = useNavigate();
