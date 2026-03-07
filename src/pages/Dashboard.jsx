@@ -13,7 +13,7 @@ import "./Dashboard.css";
 export default function Dashboard() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
-  const [wallet, setWallet] = useState({ balance: 0 }); // New Wallet State
+  const [wallet, setWallet] = useState({ balance: 0 }); 
   const [transactions, setTransactions] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +26,7 @@ export default function Dashboard() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { navigate("/login"); return; }
 
-      // Fetch Profile with AFRIBAS specific fields
+      // Fetch Profile
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('id, full_name, afribas_id, risk_index, is_quarantined') 
@@ -36,14 +36,19 @@ export default function Dashboard() {
       if (profileError) throw profileError;
       setProfile(profileData);
 
-      // NEW: Fetch Wallet Balance from the dedicated wallets table
-      const { data: walletData } = await supabase
+      // Fetch Wallet Balance - Ensuring we default to 0 if no record exists
+      const { data: walletData, error: walletError } = await supabase
         .from('wallets')
         .select('balance')
         .eq('user_id', user.id)
         .single();
       
-      if (walletData) setWallet(walletData);
+      if (walletData) {
+        setWallet(walletData);
+      } else if (walletError && walletError.code === 'PGRST116') {
+        // If no wallet exists yet, we assume 0
+        setWallet({ balance: 0 });
+      }
 
       // Fetch Recent Activity (Bridge & Settlement)
       const { data: txData } = await supabase
@@ -55,7 +60,7 @@ export default function Dashboard() {
 
       setTransactions(txData || []);
 
-      // Fetch Unread Security/System Notifications
+      // Fetch Unread Notifications
       const { data: notifData } = await supabase
         .from('notifications')
         .select('*')
@@ -72,26 +77,45 @@ export default function Dashboard() {
     }
   }, [navigate]);
 
-  // 2. Real-time Node Monitoring
+  // 2. Real-time Node Monitoring (The "Live" Part)
   useEffect(() => {
     getDashboardData();
     
-    // Subscribe to Profile, Transactions, AND Wallet Balance changes
-    const nodeSubscription = supabase
-      .channel('node_live_update')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, () => getDashboardData())
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'bridge_transactions' }, () => getDashboardData())
-      .on('postgres_changes', { 
-        event: 'UPDATE', 
-        schema: 'public', 
-        table: 'wallets' 
-      }, (payload) => {
-        setWallet({ balance: payload.new.balance }); // Update balance instantly
-      })
+    // Subscribe to changes in the 'wallets' table specifically for this user
+    const walletSubscription = supabase
+      .channel('wallet_updates')
+      .on('postgres_changes', 
+        { 
+          event: 'UPDATE', 
+          schema: 'public', 
+          table: 'wallets' 
+        }, 
+        (payload) => {
+          // Only update if the changed wallet belongs to our user
+          if (profile && payload.new.user_id === profile.id) {
+            setWallet({ balance: payload.new.balance });
+          } else {
+            // Fallback: refresh all data to be safe
+            getDashboardData();
+          }
+        }
+      )
       .subscribe();
 
-    return () => { supabase.removeChannel(nodeSubscription); };
-  }, [getDashboardData]);
+    // Subscribe to new transactions
+    const txSubscription = supabase
+      .channel('tx_updates')
+      .on('postgres_changes', 
+        { event: 'INSERT', schema: 'public', table: 'bridge_transactions' }, 
+        () => getDashboardData()
+      )
+      .subscribe();
+
+    return () => { 
+      supabase.removeChannel(walletSubscription); 
+      supabase.removeChannel(txSubscription); 
+    };
+  }, [getDashboardData, profile?.id]);
 
   const actions = [
     { icon: <ShieldCheck size={22} />, label: "Afribas", path: "/afribas", active: true },
