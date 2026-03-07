@@ -5,7 +5,7 @@ import {
   FileText, ChevronRight, Globe, Loader2, ChevronDown
 } from "lucide-react";
 import Topbar2 from "../components/Topbar2";
-import "./upport.css";
+import "./Support.css";
 
 export default function Support() {
   const navigate = useNavigate();
