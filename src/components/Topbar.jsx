@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu, User, Activity } from "lucide-react"; 
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
-import './topbar.css';
+import './Topbar.css';
 
 export default function Topbar({ onMenuClick }) {
   const navigate = useNavigate();
