@@ -42,61 +42,60 @@ export default function AddMoney() {
     { id: 3, title: "Cash at Agent", desc: "Find a BIGE-50 agent nearby", icon: <UserCheck className="method-icon-green" />, color: "#dcfce7" },
   ];
 
-const handleDeposit = async () => {
-  setIsLoading(true);
-  
-  // 1. Generate a unique reference for this attempt
-  const ref = `BIGE-${userId.substring(0, 5)}-${Date.now()}`;
-  
-  try {
-    // 2. First, log the transaction in your database as 'pending'
-    const { error: dbError } = await supabase
-      .from('bridge_transactions')
-      .insert([{
-        sender_id: userId,
-        amount: parseFloat(amount),
-        recipient_bank: 'Lenco Deposit',
-        recipient_account: phone,
-        status: 'pending',
-        reference_number: ref,
-        source_type: 'internal',
-        fee: 0
-      }]);
+  const handleDeposit = async () => {
+    setLoading(true); // Fixed: changed from setIsLoading
+    
+    try {
+      // 1. Get the current user ID
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("User not authenticated");
 
-    if (dbError) throw dbError;
+      // 2. Generate a unique reference
+      const ref = `BIGE-${user.id.substring(0, 5)}-${Date.now()}`;
+      
+      // 3. Log the transaction in the database
+      const { error: dbError } = await supabase
+        .from('bridge_transactions')
+        .insert([{
+          sender_id: user.id,
+          amount: parseFloat(amount),
+          recipient_bank: 'Lenco Deposit',
+          recipient_account: phone,
+          status: 'pending',
+          reference_number: ref,
+          source_type: 'internal',
+          fee: 0
+        }]);
 
-    // 3. Now, call the Edge Function
-    // We use the supabase.functions.invoke helper which handles headers automatically
-    const { data, error: funcError } = await supabase.functions.invoke('lenco-pay', {
-      body: { 
-        amount: parseFloat(amount), 
-        phone: phone, 
-        reference: ref 
+      if (dbError) throw dbError;
+
+      // 4. Call the Edge Function
+      const { data, error: funcError } = await supabase.functions.invoke('lenco-pay', {
+        body: { 
+          amount: parseFloat(amount), 
+          phone: phone, 
+          reference: ref 
+        }
+      });
+
+      if (funcError) throw funcError;
+
+      // 5. Handle response
+      if (data?.status === true || data?.status === 'success') {
+        alert("Please check your phone for the PIN prompt!");
+        setSuccess(true);
+      } else {
+        alert(`Error: ${data?.message || "Payment initiation failed"}`);
       }
-    });
 
-    if (funcError) {
-      console.error("Function Error:", funcError);
-      alert("Payment initiation failed. Please check your connection.");
-      return;
+    } catch (err) {
+      console.error("Deposit Process Error:", err.message);
+      alert(err.message || "An unexpected error occurred.");
+    } finally {
+      setLoading(false); // Fixed: changed from setIsLoading
     }
+  };
 
-    // 4. Handle Lenco's response
-    if (data?.status === true || data?.status === 'success') {
-      alert("Please check your phone for the PIN prompt!");
-      // Optionally redirect to a 'waiting' or 'success' screen
-    } else {
-      console.error("Lenco Rejected:", data);
-      alert(`Error: ${data?.message || "Could not start payment"}`);
-    }
-
-  } catch (err) {
-    console.error("Deposit Process Error:", err.message);
-    alert("An unexpected error occurred.");
-  } finally {
-    setIsLoading(false);
-  }
-};
   return (
     <div className="add-money-page">
       <Topbar2 title={selectedMethod ? `Funding via ${selectedMethod.title}` : "Add Money"} />
