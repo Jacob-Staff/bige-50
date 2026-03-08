@@ -41,16 +41,29 @@ export default function AddMoney() {
     { id: 2, title: "Bank Transfer", desc: "Deposit via EFT or DDAC", icon: <Landmark className="method-icon-orange" />, color: "#ffedd5" },
     { id: 3, title: "Cash at Agent", desc: "Find a BIGE-50 agent nearby", icon: <UserCheck className="method-icon-green" />, color: "#dcfce7" },
   ];
-//handle deposit
-  const handleDeposit = async () => {
-  if (!amount || !phone) return alert("Please enter amount and phone number");
-  
-  setLoading(true);
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    const ref = `BIGE-${user.id.slice(0,5)}-${Date.now()}`; // Unique Reference
 
-    // STEP 1: Pre-log the transaction in your DB
+  const handleDeposit = async () => {
+  // 1. Basic validation
+  if (!amount || parseFloat(amount) <= 0) {
+    return alert("Please enter a valid amount");
+  }
+  if (!phone || phone.length < 10) {
+    return alert("Please enter a valid phone number (e.g., 097...)");
+  }
+
+  setLoading(true);
+  console.log("Starting deposit for:", amount, "to phone:", phone);
+
+  try {
+    // 2. Get the current user
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (userError || !user) throw new Error("Please log in to add money");
+
+    // 3. Generate a unique reference for this transaction
+    const ref = `BIGE-${user.id.slice(0, 5)}-${Date.now()}`;
+
+    // 4. Create the 'pending' record in bridge_transactions
+    console.log("Creating transaction record...");
     const { error: logError } = await supabase
       .from('bridge_transactions')
       .insert([{
@@ -59,26 +72,31 @@ export default function AddMoney() {
         recipient_bank: "Lenco Deposit",
         recipient_account: phone,
         status: 'pending',
-        reference_number: ref // THIS MATCHES THE WEBHOOK EQ
+        reference_number: ref
       }]);
 
-    if (logError) throw logError;
+    if (logError) throw new Error("Database error: " + logError.message);
 
-    // STEP 2: Trigger the STK Push
-    const { data, error } = await supabase.functions.invoke('lenco-pay', {
+    // 5. CALL THE FUNCTION
+    console.log("Invoking lenco-pay function...");
+    const { data, error: funcError } = await supabase.functions.invoke('lenco-pay', {
       body: { 
-        amount, 
-        userEmail: user.email, 
-        userId: user.id, 
-        phone,
-        reference: ref // Pass the same ref to Lenco
+        amount: parseFloat(amount), 
+        phone: phone,
+        reference: ref 
       }
     });
 
-    if (error) throw error;
-    alert("Check your phone for the PIN prompt!");
+    if (funcError) {
+      console.error("Function Error:", funcError);
+      throw new Error("Payment trigger failed: " + funcError.message);
+    }
+
+    console.log("Response from Lenco:", data);
+    alert("Request sent! Check your phone for the PIN prompt.");
 
   } catch (err) {
+    console.error("Deposit Process Error:", err);
     alert("Error: " + err.message);
   } finally {
     setLoading(false);
