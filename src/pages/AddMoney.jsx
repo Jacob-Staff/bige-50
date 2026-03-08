@@ -10,10 +10,10 @@ export default function AddMoney() {
   const [balance, setBalance] = useState(0);
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [amount, setAmount] = useState("");
+  const [phone, setPhone] = useState(""); // Added phone state
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // 1. Fetch real balance from the dedicated 'wallets' table
   const fetchBalance = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -43,65 +43,55 @@ export default function AddMoney() {
   ];
 
   const handleDeposit = async () => {
-  // 1. Basic validation
-  if (!amount || parseFloat(amount) <= 0) {
-    return alert("Please enter a valid amount");
-  }
-  if (!phone || phone.length < 10) {
-    return alert("Please enter a valid phone number (e.g., 097...)");
-  }
-
-  setLoading(true);
-  console.log("Starting deposit for:", amount, "to phone:", phone);
-
-  try {
-    // 2. Get the current user
-    const { data: { user }, error: userError } = await supabase.auth.getUser();
-    if (userError || !user) throw new Error("Please log in to add money");
-
-    // 3. Generate a unique reference for this transaction
-    const ref = `BIGE-${user.id.slice(0, 5)}-${Date.now()}`;
-
-    // 4. Create the 'pending' record in bridge_transactions
-    console.log("Creating transaction record...");
-    const { error: logError } = await supabase
-      .from('bridge_transactions')
-      .insert([{
-        sender_id: user.id,
-        amount: parseFloat(amount),
-        recipient_bank: "Lenco Deposit",
-        recipient_account: phone,
-        status: 'pending',
-        reference_number: ref
-      }]);
-
-    if (logError) throw new Error("Database error: " + logError.message);
-
-    // 5. CALL THE FUNCTION
-    console.log("Invoking lenco-pay function...");
-    const { data, error: funcError } = await supabase.functions.invoke('lenco-pay', {
-      body: { 
-        amount: parseFloat(amount), 
-        phone: phone,
-        reference: ref 
-      }
-    });
-
-    if (funcError) {
-      console.error("Function Error:", funcError);
-      throw new Error("Payment trigger failed: " + funcError.message);
+    // 1. Validation
+    if (!amount || parseFloat(amount) <= 0) {
+      return alert("Please enter a valid amount");
+    }
+    if (!phone || phone.length < 10) {
+      return alert("Please enter a valid phone number (097/096/077...)");
     }
 
-    console.log("Response from Lenco:", data);
-    alert("Request sent! Check your phone for the PIN prompt.");
+    setLoading(true);
+    try {
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError || !user) throw new Error("Please log in to add money");
 
-  } catch (err) {
-    console.error("Deposit Process Error:", err);
-    alert("Error: " + err.message);
-  } finally {
-    setLoading(false);
-  }
-};
+      const ref = `BIGE-${user.id.slice(0, 5)}-${Date.now()}`;
+
+      // 2. Create the 'pending' record
+      const { error: logError } = await supabase
+        .from('bridge_transactions')
+        .insert([{
+          sender_id: user.id,
+          amount: parseFloat(amount),
+          recipient_bank: "Lenco Deposit",
+          recipient_account: phone,
+          status: 'pending',
+          reference_number: ref
+        }]);
+
+      if (logError) throw new Error("Database error: " + logError.message);
+
+      // 3. Trigger Lenco
+      const { data, error: funcError } = await supabase.functions.invoke('lenco-pay', {
+        body: { 
+          amount: parseFloat(amount), 
+          phone: phone,
+          reference: ref 
+        }
+      });
+
+      if (funcError) throw new Error("Payment trigger failed: " + funcError.message);
+
+      alert("Request sent! Look for the PIN prompt on your phone.");
+      // We don't set success to true yet; the webhook will handle the wallet update
+    } catch (err) {
+      console.error("Deposit Error:", err);
+      alert("Error: " + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="add-money-page">
@@ -136,24 +126,38 @@ export default function AddMoney() {
         {selectedMethod && !success && (
           <div className="method-card" style={{ flexDirection: 'column', cursor: 'default', gap: '20px', padding: '20px' }}>
             <div style={{ textAlign: 'left', width: '100%' }}>
-              <label style={{ fontSize: '13px', fontWeight: '700', color: '#64748b' }}>Enter Amount (ZMW)</label>
+              <label style={{ fontSize: '13px', fontWeight: '700', color: '#64748b' }}>Amount (ZMW)</label>
               <input 
                 type="number" 
                 placeholder="0.00" 
-                className="preview-amount"
+                className="input-field"
                 style={{ width: '100%', border: 'none', borderBottom: '2px solid #f1f5f9', outline: 'none', padding: '10px 0', fontSize: '24px', fontWeight: '700' }}
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
               />
             </div>
+
+            {/* NEW PHONE INPUT FIELD */}
+            <div style={{ textAlign: 'left', width: '100%' }}>
+              <label style={{ fontSize: '13px', fontWeight: '700', color: '#64748b' }}>Mobile Money Number</label>
+              <input 
+                type="text" 
+                placeholder="097XXXXXXX" 
+                style={{ width: '100%', border: 'none', borderBottom: '2px solid #f1f5f9', outline: 'none', padding: '10px 0', fontSize: '18px' }}
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+
             <button 
               className="pay-btn"
               onClick={handleDeposit} 
-              disabled={loading || !amount}
+              disabled={loading || !amount || !phone}
               style={{ width: '100%', padding: '14px', borderRadius: '12px', background: '#1e293b', color: 'white', border: 'none', fontWeight: '700', display: 'flex', justifyContent: 'center' }}
             >
               {loading ? <Loader2 className="animate-spin" /> : "Confirm Deposit"}
             </button>
+            
             <button onClick={() => setSelectedMethod(null)} style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '13px', marginTop: '10px' }}>
               Cancel
             </button>
