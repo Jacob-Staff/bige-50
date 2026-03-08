@@ -42,62 +42,61 @@ export default function AddMoney() {
     { id: 3, title: "Cash at Agent", desc: "Find a BIGE-50 agent nearby", icon: <UserCheck className="method-icon-green" />, color: "#dcfce7" },
   ];
 
-  const handleDeposit = async () => {
-    if (!amount || parseFloat(amount) <= 0) return alert("Please enter a valid amount");
-    if (!phone || phone.length < 10) return alert("Please enter a valid phone number (097/096/077...)");
+const handleDeposit = async () => {
+  setIsLoading(true);
+  
+  // 1. Generate a unique reference for this attempt
+  const ref = `BIGE-${userId.substring(0, 5)}-${Date.now()}`;
+  
+  try {
+    // 2. First, log the transaction in your database as 'pending'
+    const { error: dbError } = await supabase
+      .from('bridge_transactions')
+      .insert([{
+        sender_id: userId,
+        amount: parseFloat(amount),
+        recipient_bank: 'Lenco Deposit',
+        recipient_account: phone,
+        status: 'pending',
+        reference_number: ref,
+        source_type: 'internal',
+        fee: 0
+      }]);
 
-    setLoading(true);
-    console.log("Initiating deposit...");
+    if (dbError) throw dbError;
 
-    try {
-      const { data: { user }, error: userError } = await supabase.auth.getUser();
-      if (userError || !user) throw new Error("Please log in to add money");
-
-      const ref = `BIGE-${user.id.slice(0, 5)}-${Date.now()}`;
-
-      // 1. Create the database record first
-      const { error: logError } = await supabase
-        .from('bridge_transactions')
-        .insert([{
-          sender_id: user.id,
-          amount: parseFloat(amount),
-          recipient_bank: "Lenco Deposit",
-          recipient_account: phone,
-          status: 'pending',
-          reference_number: ref
-        }]);
-
-      if (logError) throw new Error("Database log failed: " + logError.message);
-
-      // 2. Trigger the Lenco Pay Edge Function
-      const { data, error: funcError } = await supabase.functions.invoke('lenco-pay', {
-        body: { 
-          amount: parseFloat(amount), 
-          phone: phone,
-          reference: ref 
-        }
-      });
-
-      if (funcError) {
-        // Check if it's a network/CORS error
-        if (funcError.message?.includes('Failed to fetch')) {
-          throw new Error("Connection to payment server failed. Check your internet or if the function is deployed.");
-        }
-        throw funcError;
+    // 3. Now, call the Edge Function
+    // We use the supabase.functions.invoke helper which handles headers automatically
+    const { data, error: funcError } = await supabase.functions.invoke('lenco-pay', {
+      body: { 
+        amount: parseFloat(amount), 
+        phone: phone, 
+        reference: ref 
       }
+    });
 
-      console.log("Lenco Response:", data);
-      alert("Request sent! Keep your phone screen on and look for the PIN prompt.");
-      
-    } catch (err) {
-      console.error("Critical Deposit Error:", err);
-      alert(err.message || "An unexpected error occurred. Please try again.");
-    } finally {
-      // This ensures the UI "un-faints" no matter what happens
-      setLoading(false);
+    if (funcError) {
+      console.error("Function Error:", funcError);
+      alert("Payment initiation failed. Please check your connection.");
+      return;
     }
-  };
 
+    // 4. Handle Lenco's response
+    if (data?.status === true || data?.status === 'success') {
+      alert("Please check your phone for the PIN prompt!");
+      // Optionally redirect to a 'waiting' or 'success' screen
+    } else {
+      console.error("Lenco Rejected:", data);
+      alert(`Error: ${data?.message || "Could not start payment"}`);
+    }
+
+  } catch (err) {
+    console.error("Deposit Process Error:", err.message);
+    alert("An unexpected error occurred.");
+  } finally {
+    setIsLoading(false);
+  }
+};
   return (
     <div className="add-money-page">
       <Topbar2 title={selectedMethod ? `Funding via ${selectedMethod.title}` : "Add Money"} />
