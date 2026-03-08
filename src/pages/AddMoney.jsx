@@ -42,56 +42,14 @@ export default function AddMoney() {
     { id: 3, title: "Cash at Agent", desc: "Find a BIGE-50 agent nearby", icon: <UserCheck className="method-icon-green" />, color: "#dcfce7" },
   ];
 
-  const handleDeposit = async () => {
-    // 1. Validation
-    if (!amount || parseFloat(amount) <= 0) {
-      return alert("Please enter a valid amount");
-    }
-    if (!phone || phone.length < 10) {
-      return alert("Please enter a valid phone number (097/096/077...)");
-    }
-
-    setLoading(true);
-    try {
-      const { data: { user }, error: userError } = await supabase.auth.getUser();
-      if (userError || !user) throw new Error("Please log in to add money");
-
-      const ref = `BIGE-${user.id.slice(0, 5)}-${Date.now()}`;
-
-      // 2. Create the 'pending' record
-      const { error: logError } = await supabase
-        .from('bridge_transactions')
-        .insert([{
-          sender_id: user.id,
-          amount: parseFloat(amount),
-          recipient_bank: "Lenco Deposit",
-          recipient_account: phone,
-          status: 'pending',
-          reference_number: ref
-        }]);
-
-      if (logError) throw new Error("Database error: " + logError.message);
-
-      // 3. Trigger Lenco
-      const { data, error: funcError } = await supabase.functions.invoke('lenco-pay', {
-        body: { 
-          amount: parseFloat(amount), 
-          phone: phone,
-          reference: ref 
-        }
-      });
-
-      if (funcError) throw new Error("Payment trigger failed: " + funcError.message);
-
-      alert("Request sent! Look for the PIN prompt on your phone.");
-      // We don't set success to true yet; the webhook will handle the wallet update
-    } catch (err) {
-      console.error("Deposit Error:", err);
-      alert("Error: " + err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+ // Find the catch block and ensure finally is there!
+} catch (err) {
+    console.error("Deposit Error:", err);
+    alert("Error: " + err.message);
+    setLoading(false); // <--- Add this here to "un-faint" the screen on error
+} finally {
+    setLoading(false); // <--- And keep this here
+}
 
   return (
     <div className="add-money-page">
