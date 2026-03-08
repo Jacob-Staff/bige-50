@@ -10,7 +10,7 @@ export default function AddMoney() {
   const [balance, setBalance] = useState(0);
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [amount, setAmount] = useState("");
-  const [phone, setPhone] = useState(""); // Added phone state
+  const [phone, setPhone] = useState(""); 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -42,14 +42,61 @@ export default function AddMoney() {
     { id: 3, title: "Cash at Agent", desc: "Find a BIGE-50 agent nearby", icon: <UserCheck className="method-icon-green" />, color: "#dcfce7" },
   ];
 
- // Find the catch block and ensure finally is there!
-} catch (err) {
-    console.error("Deposit Error:", err);
-    alert("Error: " + err.message);
-    setLoading(false); // <--- Add this here to "un-faint" the screen on error
-} finally {
-    setLoading(false); // <--- And keep this here
-}
+  const handleDeposit = async () => {
+    if (!amount || parseFloat(amount) <= 0) return alert("Please enter a valid amount");
+    if (!phone || phone.length < 10) return alert("Please enter a valid phone number (097/096/077...)");
+
+    setLoading(true);
+    console.log("Initiating deposit...");
+
+    try {
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError || !user) throw new Error("Please log in to add money");
+
+      const ref = `BIGE-${user.id.slice(0, 5)}-${Date.now()}`;
+
+      // 1. Create the database record first
+      const { error: logError } = await supabase
+        .from('bridge_transactions')
+        .insert([{
+          sender_id: user.id,
+          amount: parseFloat(amount),
+          recipient_bank: "Lenco Deposit",
+          recipient_account: phone,
+          status: 'pending',
+          reference_number: ref
+        }]);
+
+      if (logError) throw new Error("Database log failed: " + logError.message);
+
+      // 2. Trigger the Lenco Pay Edge Function
+      const { data, error: funcError } = await supabase.functions.invoke('lenco-pay', {
+        body: { 
+          amount: parseFloat(amount), 
+          phone: phone,
+          reference: ref 
+        }
+      });
+
+      if (funcError) {
+        // Check if it's a network/CORS error
+        if (funcError.message?.includes('Failed to fetch')) {
+          throw new Error("Connection to payment server failed. Check your internet or if the function is deployed.");
+        }
+        throw funcError;
+      }
+
+      console.log("Lenco Response:", data);
+      alert("Request sent! Keep your phone screen on and look for the PIN prompt.");
+      
+    } catch (err) {
+      console.error("Critical Deposit Error:", err);
+      alert(err.message || "An unexpected error occurred. Please try again.");
+    } finally {
+      // This ensures the UI "un-faints" no matter what happens
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="add-money-page">
@@ -84,20 +131,18 @@ export default function AddMoney() {
         {selectedMethod && !success && (
           <div className="method-card" style={{ flexDirection: 'column', cursor: 'default', gap: '20px', padding: '20px' }}>
             <div style={{ textAlign: 'left', width: '100%' }}>
-              <label style={{ fontSize: '13px', fontWeight: '700', color: '#64748b' }}>Amount (ZMW)</label>
+              <label style={{ fontSize: '12px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase' }}>Amount (ZMW)</label>
               <input 
                 type="number" 
                 placeholder="0.00" 
-                className="input-field"
                 style={{ width: '100%', border: 'none', borderBottom: '2px solid #f1f5f9', outline: 'none', padding: '10px 0', fontSize: '24px', fontWeight: '700' }}
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
               />
             </div>
 
-            {/* NEW PHONE INPUT FIELD */}
             <div style={{ textAlign: 'left', width: '100%' }}>
-              <label style={{ fontSize: '13px', fontWeight: '700', color: '#64748b' }}>Mobile Money Number</label>
+              <label style={{ fontSize: '12px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase' }}>Mobile Number</label>
               <input 
                 type="text" 
                 placeholder="097XXXXXXX" 
@@ -111,12 +156,23 @@ export default function AddMoney() {
               className="pay-btn"
               onClick={handleDeposit} 
               disabled={loading || !amount || !phone}
-              style={{ width: '100%', padding: '14px', borderRadius: '12px', background: '#1e293b', color: 'white', border: 'none', fontWeight: '700', display: 'flex', justifyContent: 'center' }}
+              style={{ 
+                width: '100%', 
+                padding: '16px', 
+                borderRadius: '12px', 
+                background: loading ? '#94a3b8' : '#1e293b', 
+                color: 'white', 
+                border: 'none', 
+                fontWeight: '700', 
+                display: 'flex', 
+                justifyContent: 'center',
+                transition: 'all 0.2s ease'
+              }}
             >
               {loading ? <Loader2 className="animate-spin" /> : "Confirm Deposit"}
             </button>
             
-            <button onClick={() => setSelectedMethod(null)} style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '13px', marginTop: '10px' }}>
+            <button onClick={() => setSelectedMethod(null)} disabled={loading} style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '13px' }}>
               Cancel
             </button>
           </div>
@@ -125,20 +181,16 @@ export default function AddMoney() {
         {success && (
           <div className="method-card" style={{ flexDirection: 'column', padding: '30px', textAlign: 'center', width: '100%' }}>
             <CheckCircle size={48} color="#16a34a" style={{ marginBottom: '15px', alignSelf: 'center' }} />
-            <h3 className="method-title">Deposit Successful</h3>
-            <p className="method-desc" style={{ marginBottom: '20px' }}>Your wallet has been credited.</p>
+            <h3 className="method-title">Processing Request</h3>
+            <p className="method-desc" style={{ marginBottom: '20px' }}>Once you enter your PIN, your balance will update automatically.</p>
             <button 
               onClick={() => navigate("/dashboard")}
               style={{ width: '100%', padding: '12px', borderRadius: '10px', background: '#1e293b', color: 'white', border: 'none', fontWeight: '700' }}
             >
-              Return to Dashboard
+              Back to Dashboard
             </button>
           </div>
         )}
-
-        <div className="help-box">
-          <p>Need help? <strong>Contact Support</strong></p>
-        </div>
       </div>
     </div>
   );
